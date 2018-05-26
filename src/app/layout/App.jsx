@@ -11,12 +11,14 @@ import UserDetailed from '../../features/user/UserDetailed/UserDetailedPage';
 import SettingsDashboard from '../../features/user/Settings/SettingsDashboard';
 import HomePage from '../../features/home/HomePage';
 import TestComponent from '../../features/testarea/Testcomponent';
+import ModalManager from '../../features/modals/ModalManager';
 
 // prettier-ignore
 class App extends Component {
     render() {
         return (
             <div>
+            <ModalManager />
                 <Switch>
                     <Route exact path="/" component={HomePage} />
                 </Switch>
