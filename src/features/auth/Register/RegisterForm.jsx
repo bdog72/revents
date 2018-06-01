@@ -1,15 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Form, Segment, Button } from 'semantic-ui-react';
+import { Form, Segment, Button, Label, Divider } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
+import { combineValidators, isRequired } from 'revalidate';
 import TextInput from '../../../app/common/form/TextInput';
 import { registerUser } from '../authAuctions';
+
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const actions = {
     registerUser
 };
 
-const RegisterForm = ({ handleSubmit, registerUser }) => {
+const validate = combineValidators({
+    displayName: isRequired('display'),
+    email: isRequired('email'),
+    password: isRequired('password')
+});
+
+const RegisterForm = ({
+    handleSubmit,
+    registerUser,
+    error,
+    invalid,
+    submitting
+}) => {
     return (
         <div>
             <Form size="large" onSubmit={handleSubmit(registerUser)}>
@@ -32,9 +47,21 @@ const RegisterForm = ({ handleSubmit, registerUser }) => {
                         component={TextInput}
                         placeholder="Password"
                     />
-                    <Button fluid size="large" color="teal">
+                    {error && (
+                        <Label basic color="red">
+                            {error}
+                        </Label>
+                    )}
+                    <Button
+                        disabled={invalid || submitting}
+                        fluid
+                        size="large"
+                        color="teal"
+                    >
                         Register
                     </Button>
+                    <Divider horizontal>or</Divider>
+                    <SocialLogin />
                 </Segment>
             </Form>
         </div>
@@ -42,5 +69,5 @@ const RegisterForm = ({ handleSubmit, registerUser }) => {
 };
 
 export default connect(null, actions)(
-    reduxForm({ form: 'registerForm' })(RegisterForm)
+    reduxForm({ form: 'registerForm', validate })(RegisterForm)
 );
