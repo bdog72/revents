@@ -16,30 +16,32 @@ const store = configureStore();
 const rootEl = document.getElementById('root');
 
 let render = () => {
-    ReactDOM.render(
-        <Provider store={store}>
-            <BrowserRouter>
-                <ScrollToTop>
-                    <ReduxToastr
-                        position="bottom-right"
-                        transitionIn="fadeIn"
-                        transitionOut="fadeOut"
-                    />
-                    <App />
-                </ScrollToTop>
-            </BrowserRouter>
-        </Provider>,
-        rootEl
-    );
+  ReactDOM.render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <ScrollToTop>
+          <ReduxToastr
+            position="bottom-right"
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+          />
+          <App />
+        </ScrollToTop>
+      </BrowserRouter>
+    </Provider>,
+    rootEl
+  );
 };
 
 if (module.hot) {
-    module.hot.accept('./app/layout/App', () => {
-        setTimeout(render);
-    });
+  module.hot.accept('./app/layout/App', () => {
+    setTimeout(render);
+  });
 }
 
-render();
+store.firebaseAuthIsReady.then(() => {
+  render();
+});
 
 registerServiceWorker();
 

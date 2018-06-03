@@ -32,7 +32,7 @@ class App extends Component {
                                 <Route path="/test" component={TestComponent} />
                                 <Route path="/event/:id" component={EventDetailedPage} />
                                 <Route path="/manage/:id" component={EventForm} />
-                                <Route path="/people" component={PeopleDashboard} />
+                                 <Route path="/people" component={PeopleDashboard} />
                                 <Route path="/people/:id" component={UserDetailed} />
                                 <Route path="/settings" component={SettingsDashboard} />
                                 <Route path="/createEvent" component={EventForm} />
@@ -43,6 +43,6 @@ class App extends Component {
             </div>
         );
     }
-}
+        }
 
 export default App;
